@@ -1,0 +1,128 @@
+---
+import { timeline } from '../data/site'
+---
+
+<section class="lede-wrap">
+  <p class="wrap lede-text" data-reveal>
+    Vücudumuzdaki her hücrede DNA her gün <span class="red">binlerce kez</span> hasar görür: güneşin morötesi ışınları,
+    sigara dumanı, kimyasallar. Yine de çoğumuz sağlıklı yaşarız. Çünkü hücrelerimizde sessizce çalışan bir{' '}
+    <span class="blue">tamir ekibi</span> var. Aziz Sancar, bu ekibin nasıl çalıştığını molekül molekül ortaya koydu.
+  </p>
+</section>
+
+<section id="hayati" class="life">
+  <div class="wrap grid">
+    <div class="intro">
+      <p class="eyebrow" data-reveal>Bölüm I</p>
+      <h2 class="section-title" data-reveal style="--delay: 0.08s">Savur'dan Stockholm'e</h2>
+      <p class="body" data-reveal style="--delay: 0.16s">
+        Sekiz çocuklu bir ailenin yedinci çocuğu. Anne ve babası okuma yazma bilmiyordu ama çocuklarının okuması için
+        her şeyi yaptılar. Sancar bugün bile başarısını ailesine ve Cumhuriyet'in idealist öğretmenlerine borçlu
+        olduğunu söyler.
+      </p>
+    </div>
+    <ol class="timeline">
+      {
+        timeline.map((t) => (
+          <li data-reveal>
+            <span class:list={['year', { gold: t.highlight }]}>{t.year}</span>
+            <div>
+              <h3>{t.title}</h3>
+              <p>{t.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .lede-wrap {
+    padding-block: clamp(80px, 12vw, 120px);
+  }
+  .lede-text {
+    max-width: 900px;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(26px, 3.4vw, 42px);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .red {
+    color: var(--damage);
+  }
+  .blue {
+    color: var(--helix);
+  }
+
+  .life {
+    border-top: 1px solid var(--rule);
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 64px;
+    padding-block: clamp(72px, 10vw, 96px);
+  }
+  .intro {
+    flex: 1 1 300px;
+    min-width: 0;
+  }
+  @media (min-width: 960px) {
+    .intro {
+      position: sticky;
+      top: 110px;
+      align-self: flex-start;
+    }
+  }
+  .eyebrow {
+    margin-bottom: 16px;
+  }
+  .body {
+    margin-top: 24px;
+    color: var(--ink-2);
+  }
+  .timeline {
+    flex: 999 1 560px;
+    min-width: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--ink);
+  }
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 32px;
+    padding-block: 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  li:last-child {
+    border-bottom: 0;
+  }
+  li > div {
+    flex: 1 1 320px;
+  }
+  .year {
+    flex: 0 0 120px;
+    font-family: var(--font-display);
+    font-size: 30px;
+    line-height: 1.1;
+    transition: color 0.3s;
+  }
+  li:hover .year {
+    color: var(--helix);
+  }
+  .year.gold,
+  li:hover .year.gold {
+    color: var(--gold);
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  li p {
+    margin-top: 6px;
+    color: var(--ink-2);
+  }
+</style>

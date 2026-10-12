@@ -1,0 +1,106 @@
+---
+import { laureates } from '../data/site'
+---
+
+<section id="nobel" class="wrap nobel">
+  <div class="head">
+    <div class="quote">
+      <p class="eyebrow" data-reveal>Bölüm III</p>
+      <h2 class="section-title" data-reveal style="--delay: 0.08s">
+        “DNA onarımının mekanizmalarına yönelik çalışmaları için.”
+      </h2>
+    </div>
+    <p class="year" data-reveal style="--delay: 0.16s" aria-hidden="true">2015</p>
+  </div>
+
+  <div class="people">
+    {
+      laureates.map((l, i) => (
+        <div class:list={['person', { dark: l.highlight }]} data-reveal style={`--delay:${i * 0.1}s`}>
+          <p class="country">{l.country}</p>
+          <h3>{l.name}</h3>
+          <p class="text">{l.text}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="note" data-reveal>
+    Ödül 7 Ekim 2015'te açıklandı ve 10 Aralık'ta Stockholm'de verildi. Sancar, Nobel'i bilim dalında kazanan ilk Türk
+    oldu.
+  </p>
+</section>
+
+<style>
+  .nobel {
+    padding-block: clamp(88px, 12vw, 120px);
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .quote {
+    flex: 1 1 520px;
+    min-width: 0;
+  }
+  .eyebrow {
+    margin-bottom: 16px;
+  }
+  .year {
+    font-family: var(--font-display);
+    font-size: clamp(96px, 14vw, 200px);
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    color: var(--gold);
+  }
+  .people {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 24px;
+  }
+  .person {
+    padding: 28px;
+    border: 1px solid var(--rule);
+    transition:
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s;
+  }
+  .person:hover {
+    transform: translateY(-4px);
+    border-color: var(--ink);
+  }
+  .person.dark {
+    background: var(--night);
+    border-color: var(--night);
+    color: var(--paper);
+  }
+  .country {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .dark .country {
+    color: var(--gold-light);
+  }
+  h3 {
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 28px;
+  }
+  .text {
+    margin-top: 12px;
+    color: var(--ink-2);
+  }
+  .dark .text {
+    color: var(--night-text);
+  }
+  .note {
+    margin-top: 40px;
+    max-width: 760px;
+    color: var(--ink-2);
+  }
+</style>

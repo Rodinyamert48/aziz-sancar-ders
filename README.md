@@ -1,45 +1,32 @@
-# Aziz Sancar — DNA'nın Tamircisi
+# Aziz Sancar — DNA'yı onaran adam
 
-Proje Tasarım dersi için hazırlanmış, Nobel ödüllü bilim insanı **Aziz Sancar** hakkında etkileşimli web sunumu.
+Proje Tasarım dersi için hazırlanmış, Nobel ödüllü bilim insanı **Aziz Sancar**'ı tanıtan web sitesi.
 
 **Canlı site:** https://rodinyamert48.github.io/aziz-sancar-ders/
 
-## Özellikler
+Aşağı kaydırdıkça hikâyeyi anlatan tek sayfalık, dergi/müze sergisi tarzında bir site:
 
-- 16 slaytlık tam ekran sunum (kaydırarak ya da klavyeyle gezilir)
-- Etkileşimli animasyonlar: dönen DNA sarmalı, fotoliyaz onarımı, adım adım nükleotid eksizyon onarımı, biyolojik saat
-- Tıklanabilir hayat çizgisi ve sınıf için mini quiz
-- Konuşmacı notları, genel bakış ekranı, tam ekran modu
-- Telefon ve tablette de çalışır
-
-## Kısayollar
-
-| Tuş | İşlev |
-| --- | --- |
-| `→` `↓` `Boşluk` | Sonraki slayt |
-| `←` `↑` | Önceki slayt |
-| `N` | Konuşmacı notları |
-| `O` | Tüm slaytlar |
-| `F` | Tam ekran |
-| `Esc` | Pencereleri kapat |
+1. **Giriş** — "DNA'yı onaran adam." ve kısa künye
+2. **Bölüm I · Hayatı** — Savur'dan Stockholm'e zaman çizelgesi
+3. **Bölüm II · Keşifleri** — fotoliyaz, nükleotid eksizyon onarımı, biyolojik saat ve onarımın dört adımı
+4. **Bölüm III · Nobel 2015** — ödül gerekçesi ve üç bilim insanı
+5. **Bölüm IV · Mirası** — bilime ve Türkiye'ye katkıları
 
 ## Kişiselleştirme
 
-- Adınızı ve tarihi `src/data/config.ts` dosyasından değiştirin.
-- Kapak fotoğrafı için `public/images/aziz-sancar.jpg` dosyasını ekleyin (yoksa stilize bir görsel gösterilir).
-- Konuşmacı notları `src/slides/index.ts` içinde.
+- Tüm metinler `src/data/site.ts` dosyasında. Adınızı `presenter` alanına yazın.
+- Portre için `src/assets/aziz-sancar.jpg` (veya `.png`/`.webp`) ekleyin; Astro görseli otomatik optimize eder.
 
 ## Geliştirme
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173/aziz-sancar-ders/
+npm run dev      # http://localhost:4321/aziz-sancar-ders/
 npm run build    # dist/ klasörüne üretim çıktısı
 ```
 
-Teknolojiler: Vite, React 19, TypeScript, Tailwind CSS 4, Motion (Framer Motion), Lucide ikonları.
+Teknolojiler: [Astro](https://astro.build) (statik site, sıfır JS çerçevesi yükü), TypeScript, Fraunces · Instrument Sans · IBM Plex Mono yazı tipleri (yerel olarak barındırılır).
 
 ## Yayınlama
 
 `.github/workflows/deploy.yml` her push'ta siteyi derleyip GitHub Pages'e yükler.
-İlk seferde depo ayarlarından **Settings → Pages → Source: GitHub Actions** seçilmelidir.

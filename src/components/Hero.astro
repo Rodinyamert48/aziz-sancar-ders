@@ -1,0 +1,253 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+import { facts } from '../data/site'
+
+// src/assets/aziz-sancar.jpg (veya .png/.webp) eklenirse portre olarak gösterilir.
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/aziz-sancar.{jpg,jpeg,png,webp}', { eager: true })
+const photo = Object.values(photos)[0]?.default
+const rungs = [35, 60, 105, 175, 200, 245, 315, 340, 385]
+---
+
+<section id="ust" class="wrap hero">
+  <div class="copy">
+    <p class="eyebrow" data-reveal>Nobel Kimya Ödülü · 2015</p>
+    <h1 data-reveal style="--delay: 0.08s">DNA'yı onaran <em>adam.</em></h1>
+    <p class="lede" data-reveal style="--delay: 0.16s">
+      Mardin'in Savur ilçesinde doğan bir köy doktoru, hücrelerimizin hasar gören DNA'yı nasıl kesip çıkardığını ve
+      yerine doğrusunu koyduğunu keşfetti. Bilim dalında Nobel alan ilk Türk bilim insanı Aziz Sancar'ın hikâyesi.
+    </p>
+    <div class="actions" data-reveal style="--delay: 0.24s">
+      <a href="#hayati" class="btn btn-solid">Hikâyeyi oku</a>
+      <a href="#kesifleri" class="btn btn-line">Keşiflerine git</a>
+    </div>
+  </div>
+
+  <figure class="portrait" data-reveal style="--delay: 0.2s">
+    <div class="frame">
+      {
+        photo ? (
+          <Image src={photo} alt="Aziz Sancar" widths={[420, 840]} sizes="(max-width: 760px) 100vw, 420px" />
+        ) : (
+          <>
+            <svg class="helix" aria-hidden="true" viewBox="0 0 180 420">
+              <path class="strand a" d="M40 0 C 40 70, 140 70, 140 140 S 40 210, 40 280 S 140 350, 140 420" />
+              <path class="strand b" d="M140 0 C 140 70, 40 70, 40 140 S 140 210, 140 280 S 40 350, 40 420" />
+              <g class="rungs">
+                {rungs.map((y, i) => (
+                  <line x1={i % 3 === 1 ? 70 : 52} x2={i % 3 === 1 ? 110 : 128} y1={y} y2={y} style={`--i:${i}`} />
+                ))}
+              </g>
+            </svg>
+            <span class="placeholder">AS</span>
+          </>
+        )
+      }
+    </div>
+    <figcaption>Aziz Sancar, Kuzey Karolina Üniversitesi, Chapel Hill.</figcaption>
+  </figure>
+</section>
+
+<section class="strip" aria-label="Kısa künye">
+  <dl class="wrap facts">
+    {
+      facts.map((f, i) => (
+        <div class="fact" data-reveal style={`--delay:${i * 0.08}s`}>
+          <dt class:list={{ gold: f.highlight }}>{f.year}</dt>
+          <dd>{f.text}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
+
+<style>
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 64px;
+    padding-block: clamp(56px, 9vw, 88px) 72px;
+  }
+  .copy {
+    flex: 999 1 560px;
+    min-width: 0;
+  }
+  .eyebrow {
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(56px, 8vw, 116px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--helix);
+  }
+  .lede {
+    margin-top: 36px;
+    max-width: 560px;
+    font-size: clamp(18px, 1.6vw, 21px);
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .actions {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 26px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 500;
+    transition:
+      background 0.25s,
+      color 0.25s,
+      transform 0.25s;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn-solid {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-solid:hover {
+    background: var(--helix);
+  }
+  .btn-line {
+    border: 1px solid var(--ink);
+  }
+  .btn-line:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .portrait {
+    flex: 1 1 320px;
+    max-width: 420px;
+  }
+  .frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--paper-3);
+    border: 1px solid var(--rule);
+  }
+  .frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.15) contrast(1.02);
+  }
+  .helix {
+    position: absolute;
+    height: 100%;
+    opacity: 0.6;
+  }
+  .strand {
+    fill: none;
+    stroke-width: 2;
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+    animation: draw 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  }
+  .strand.a {
+    stroke: var(--helix);
+  }
+  .strand.b {
+    stroke: var(--gold);
+    animation-delay: 0.5s;
+  }
+  .rungs line {
+    stroke: var(--muted);
+    stroke-width: 1;
+    opacity: 0;
+    animation: fade 0.6s ease forwards;
+    animation-delay: calc(1s + var(--i) * 0.12s);
+  }
+  .placeholder {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 4px 18px;
+  }
+  figcaption {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .strip {
+    background: var(--paper-2);
+    border-block: 1px solid var(--rule);
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .fact {
+    padding: 28px 24px;
+    border-left: 1px solid var(--rule);
+  }
+  .fact:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+  dt {
+    font-family: var(--font-display);
+    font-size: 40px;
+    line-height: 1;
+  }
+  dt.gold {
+    color: var(--gold);
+  }
+  dd {
+    margin: 8px 0 0;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  @media (max-width: 520px) {
+    .fact {
+      border-left: 0;
+      border-top: 1px solid var(--rule);
+      padding-inline: 0;
+    }
+    .fact:first-child {
+      border-top: 0;
+    }
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes fade {
+    to {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .strand,
+    .rungs line {
+      animation: none;
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro'
+import Header from '../components/Header.astro'
+import Hero from '../components/Hero.astro'
+import Life from '../components/Life.astro'
+import Discoveries from '../components/Discoveries.astro'
+import Nobel from '../components/Nobel.astro'
+import Legacy from '../components/Legacy.astro'
+import { site } from '../data/site'
+---
+
+<Base title={site.title} description={site.description}>
+  <Header />
+  <main id="icerik">
+    <Hero />
+    <Life />
+    <Discoveries />
+    <Nobel />
+    <Legacy />
+  </main>
+</Base>
